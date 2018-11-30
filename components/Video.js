@@ -10,6 +10,8 @@ import {
   Image,
   Alert
 } from 'react-native'
+import { isIphoneX, getBottomSpace } from "react-native-iphone-x-helper";
+
 import VideoPlayer from 'react-native-video'
 import KeepAwake from 'react-native-keep-awake'
 import Orientation from 'react-native-orientation'
@@ -89,7 +91,7 @@ class Video extends Component {
   onLoad(data) {
     if (!this.state.loading) return
     this.props.onLoad(data)
-    const { height, width } = data.naturalSize   
+    const { height, width } = data.naturalSize
     const ratio = height === 'undefined' && width === 'undefined' ?
       (9 / 16) : (height / width)
     const inlineHeight = this.props.lockRatio ?
@@ -241,7 +243,7 @@ class Video extends Component {
         if (this.state.fullScreen) {
           const initialOrient = Orientation.getInitialOrientation()
           const height = orientation !== initialOrient ?
-            Win.width : Win.height
+            Win.width : (isIphoneX() ? Win.height - 45 : Win.height)
             this.props.onFullScreen(this.state.fullScreen)
             if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
             this.animToFullscreen(height)
@@ -262,16 +264,16 @@ class Video extends Component {
 
   animToFullscreen(height) {
     Animated.parallel([
-      Animated.timing(this.animFullscreen, { toValue: height, duration: 200 }),
-      Animated.timing(this.animInline, { toValue: height, duration: 200 })
+      Animated.timing(this.animFullscreen, { toValue: (isIphoneX() ? height - 30 : height), duration: 200 }),
+      Animated.timing(this.animInline, { toValue: (isIphoneX() ? height - 30 : height), duration: 200 })
     ]).start()
   }
 
   animToInline(height) {
     const newHeight = height || this.state.inlineHeight
     Animated.parallel([
-      Animated.timing(this.animFullscreen, { toValue: newHeight, duration: 100 }),
-      Animated.timing(this.animInline, { toValue: this.state.inlineHeight, duration: 100 })
+      Animated.timing(this.animFullscreen, { toValue: (isIphoneX() ? newHeight - 30 : newHeight), duration: 100 }),
+      Animated.timing(this.animInline, { toValue: (isIphoneX() ? this.state.inlineHeight - 30 : this.state.inlineHeight), duration: 100 })
     ]).start()
   }
 
