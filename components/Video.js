@@ -243,7 +243,7 @@ class Video extends Component {
         if (this.state.fullScreen) {
           const initialOrient = Orientation.getInitialOrientation()
           const height = orientation !== initialOrient ?
-            Win.width : (isIphoneX() ? Win.height - 45 : Win.height)
+            Win.width : (isIphoneX() ? Win.height : Win.height)
             this.props.onFullScreen(this.state.fullScreen)
             if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
             this.animToFullscreen(height)
@@ -264,16 +264,16 @@ class Video extends Component {
 
   animToFullscreen(height) {
     Animated.parallel([
-      Animated.timing(this.animFullscreen, { toValue: (isIphoneX() ? height - 30 : height), duration: 200 }),
-      Animated.timing(this.animInline, { toValue: (isIphoneX() ? height - 30 : height), duration: 200 })
+      Animated.timing(this.animFullscreen, { toValue: (isIphoneX() ? height  : height), duration: 200 }),
+      Animated.timing(this.animInline, { toValue: (isIphoneX() ? height  : height), duration: 200 })
     ]).start()
   }
 
   animToInline(height) {
     const newHeight = height || this.state.inlineHeight
     Animated.parallel([
-      Animated.timing(this.animFullscreen, { toValue: (isIphoneX() ? newHeight - 30 : newHeight), duration: 100 }),
-      Animated.timing(this.animInline, { toValue: (isIphoneX() ? this.state.inlineHeight - 30 : this.state.inlineHeight), duration: 100 })
+      Animated.timing(this.animFullscreen, { toValue: (isIphoneX() ? newHeight  : newHeight), duration: 100 }),
+      Animated.timing(this.animInline, { toValue: (isIphoneX() ? this.state.inlineHeight  : this.state.inlineHeight), duration: 100 })
     ]).start()
   }
 
