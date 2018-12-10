@@ -6,6 +6,7 @@ import {
   StatusBar,
   Dimensions,
   BackHandler,
+  Platform,
   Animated,
   Image,
   Alert
@@ -264,16 +265,16 @@ class Video extends Component {
 
   animToFullscreen(height) {
     Animated.parallel([
-      Animated.timing(this.animFullscreen, { toValue: (isIphoneX() ? height  : height), duration: 200 }),
-      Animated.timing(this.animInline, { toValue: (isIphoneX() ? height  : height), duration: 200 })
+      Animated.timing(this.animFullscreen, { toValue: (Platform.OS === 'ios' ? height  : height - 20), duration: 200 }),
+      Animated.timing(this.animInline, { toValue: (Platform.OS === 'ios' ? height  : height - 20), duration: 200 })
     ]).start()
   }
 
   animToInline(height) {
     const newHeight = height || this.state.inlineHeight
     Animated.parallel([
-      Animated.timing(this.animFullscreen, { toValue: (isIphoneX() ? newHeight  : newHeight), duration: 100 }),
-      Animated.timing(this.animInline, { toValue: (isIphoneX() ? this.state.inlineHeight  : this.state.inlineHeight), duration: 100 })
+      Animated.timing(this.animFullscreen, { toValue: (Platform.OS === 'ios' ? newHeight  : newHeight - 20), duration: 100 }),
+      Animated.timing(this.animInline, { toValue: (Platform.OS === 'ios' ? this.state.inlineHeight  : this.state.inlineHeight - 20), duration: 100 })
     ]).start()
   }
 
