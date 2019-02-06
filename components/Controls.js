@@ -119,7 +119,6 @@ class Controls extends Component {
       fullscreen,
       muted,
       loading,
-      logo,
       more,
       onMorePress,
       title,
@@ -137,7 +136,6 @@ class Controls extends Component {
         <Animated.View style={[styles.container, { opacity: this.animControls }]}>
           <TopBar
             title={title}
-            logo={logo}
             more={more}
             onMorePress={() => onMorePress()}
             theme={{ title: theme.title, more: theme.more }}
@@ -196,7 +194,6 @@ Controls.propTypes = {
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  logo: PropTypes.string.isRequired,
   theme: PropTypes.object.isRequired
 }
 

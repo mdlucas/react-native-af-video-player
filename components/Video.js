@@ -344,7 +344,6 @@ class Video extends Component {
       url,
       loop,
       title,
-      logo,
       rate,
       style,
       volume,
@@ -418,7 +417,6 @@ class Video extends Component {
           progress={progress}
           currentTime={currentTime}
           duration={duration}
-          logo={logo}
           title={title}
           more={!!onMorePress}
           onMorePress={() => onMorePress()}
@@ -471,7 +469,6 @@ Video.propTypes = {
   rate: PropTypes.number,
   volume: PropTypes.number,
   lockRatio: PropTypes.number,
-  logo: PropTypes.string,
   title: PropTypes.string,
   theme: PropTypes.object,
   resizeMode: PropTypes.string
@@ -500,7 +497,6 @@ Video.defaultProps = {
   rate: 1,
   volume: 1,
   lockRatio: undefined,
-  logo: undefined,
   title: '',
   theme: defaultTheme,
   resizeMode: 'contain'
